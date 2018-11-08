@@ -1,0 +1,7 @@
+      #借点钱花强制升级接口调用
+      - id: checkUpgradeAction
+        uri: lb://cms
+        predicates:
+        - Path=/template/vhtml/checkUpgradeAction.ajax
+        filters:
+        - RewritePath=/template/vhtml/checkUpgradeAction.ajax, /cms/checkUpgradeAction

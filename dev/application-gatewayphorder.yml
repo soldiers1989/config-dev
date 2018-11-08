@@ -1,0 +1,84 @@
+      #回收-手机定价查询转发
+      - id: phoneSearch
+        uri: lb://phorder
+        predicates:
+        - Path=/interface/phone/phone_search
+        filters:
+        - RewritePath=/interface/phone/phone_search, /phorder/phoneSearch
+      #回收-版本升级转发
+      - id: version
+        uri: lb://phorder
+        predicates:
+        - Path=/interface/app/version
+        filters:
+        - RewritePath=/interface/app/version, /phorder/app/version
+      #回收-获取启动页图片转发
+      - id: bannerOne
+        uri: lb://cms
+        predicates:
+        - Path=/interface/template/vhtml/bannerOneAjax.ajax
+        filters:
+        - RewritePath=/interface/template/vhtml/bannerOneAjax.ajax, /cms/bannerOne
+      #回收-获取引导页图片转发
+      - id: banner
+        uri: lb://cms
+        predicates:
+        - Path=/interface/template/vhtml/bannerAjax.ajax
+        filters:
+        - RewritePath=/interface/template/vhtml/bannerAjax.ajax, /cms/banner
+      #回收-我的信息转发
+      - id: myInfoAction
+        uri: lb://user
+        predicates:
+        - Path=/interface/template/vhtml/v2/myInfoAction.ajax
+        filters:
+        - RewritePath=/interface/template/vhtml/v2/myInfoAction.ajax, /user/myInfoAction
+      #回收-获取当前用户认证状态信息转发
+      - id: userTaskInfo
+        uri: lb://user
+        predicates:
+        - Path=/interface/template/vhtml/userTaskInfo
+        filters:
+        - RewritePath=/interface/template/vhtml/userTaskInfo, /user/userTaskPhInfo
+      #回收-用户登陆设备记录转发
+      - id: uploadUserDevice
+        uri: lb://phorder
+        predicates:
+        - Path=/interface/template/vhtml/uploadUserDevice.ajax
+        filters:
+        - RewritePath=/interface/template/vhtml/uploadUserDevice.ajax, /phorder/uploadUserDevice
+      #回收-通知风控计算额度转发
+      - id: notificationRisk
+        uri: lb://phorder
+        predicates:
+        - Path=/interface/notificationRisk.ajax
+        filters:
+        - RewritePath=/interface/notificationRisk.ajax, /phorder/notificationRisk
+      #回收-获取首页借款记录转发
+      - id: currentCreditAction
+        uri: lb://phorder
+        predicates:
+        - Path=/interface/template/vhtml/currentCreditAction.ajax
+        filters:
+        - RewritePath=/interface/template/vhtml/currentCreditAction.ajax, /phorder/currentCreditAction
+      #回收-获取借款记录转发
+      - id: getRepaymentRecordsAction
+        uri: lb://phorder
+        predicates:
+        - Path=/interface/template/vhtml/v2/getRepaymentRecordsAction.ajax
+        filters:
+        - RewritePath=/interface/template/vhtml/v2/getRepaymentRecordsAction.ajax, /phorder/getRepaymentRecordsAction
+      #回收-用户手机数据保存转发
+      - id: phoneSave
+        uri: lb://phorder
+        predicates:
+        - Path=/interface/phone/phone_save
+        filters:
+        - RewritePath=/interface/phone/phone_save, /phorder/phoneSave
+      #回收-获取紧急联系人转发
+      - id: myUrgencyPersonInfoAction
+        uri: lb://user
+        predicates:
+        - Path=/interface/template/vhtml/myUrgencyPersonInfoAction.ajax
+        filters:
+        - RewritePath=/interface/template/vhtml/myUrgencyPersonInfoAction.ajax, /user/myUrgencyPersonInfo

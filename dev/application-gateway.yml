@@ -1,0 +1,75 @@
+server:
+  port: 26001
+spring:
+  application:
+    name: gateway
+  cloud:
+    consul:
+      host: 192.168.2.208
+      port: 8500
+      discovery:
+        register: true
+        prefer-ip-address: true
+        instance-id: ${spring.application.name}-1
+        health-check-path: /actuator/health
+        service-name: gateway
+
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true
+      routes:
+      #user服务转发
+      - id: user
+        uri: lb://user
+        predicates:
+        - Path=/user/**
+      #cms服务转发
+      - id: cms
+        uri: lb://cms
+        predicates:
+        - Path=/cms/**
+      #order服务转发
+      - id: order
+        uri: lb://order
+        predicates:
+        - Path=/order/**
+      #uis服务转发
+      - id: uis
+        uri: lb://uis
+        predicates:
+        - Path=/uis/**
+      #report服务转发
+      - id: report
+        uri: http://127.0.0.1:18001
+        predicates:
+        - Path=/report/**
+      #zzz服务转发
+      - id: zzz
+        uri: http://127.0.0.1:29001
+        predicates:
+        - Path=/zzz/**
+      #phorder服务转发
+      - id: phorder
+        uri: lb://phorder
+        predicates:
+        - Path=/phorder/**
+      #用户借款资质路由
+      - id: getUserTag
+        uri: http://192.168.2.185:8094
+        predicates:
+        - Path=/data-web/userTag/getUserTag
+    bus:
+      trace:
+        enabled: true
+
+logging:
+  level:
+    org.springframework.cloud.gateway: info
+    org.springframework.http.server.reactive: info
+    org.springframework.web.reactive: info
+    reactor.ipc.netty: info
+
+management:
+  security:
+    enabled: false
